@@ -1,0 +1,4 @@
+/home/harrylex/Documentos/proyectos en Clion/AudioVisualizer_FFT_linux/cmake-build-debug/CMakeFiles/audio-visualizer.dir
+/home/harrylex/Documentos/proyectos en Clion/AudioVisualizer_FFT_linux/cmake-build-debug/CMakeFiles/AudioVisualizer_FFT_linux.dir
+/home/harrylex/Documentos/proyectos en Clion/AudioVisualizer_FFT_linux/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/harrylex/Documentos/proyectos en Clion/AudioVisualizer_FFT_linux/cmake-build-debug/CMakeFiles/rebuild_cache.dir
