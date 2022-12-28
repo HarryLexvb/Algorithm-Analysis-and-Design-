@@ -1,0 +1,10 @@
+winners: 
+
+horse walk:
+grupo 2 - horse_2.cpp
+
+Nqueens: piern y luis 
+grupo 11 - nqueens_11.cpp
+
+maze: frank salas 
+grupo 1 - maze_1.cpp
