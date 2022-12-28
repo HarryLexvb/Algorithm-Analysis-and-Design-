@@ -1,0 +1,5 @@
+/snap/clion/219/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/snap/clion/219/bin/ninja/linux/ninja -G Ninja -S "/home/harrylex/Documentos/proyectos en Clion/DenseSubgraph" -B "/home/harrylex/Documentos/proyectos en Clion/DenseSubgraph/cmake-build-debug"
+-- Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.74.0/BoostConfig.cmake (found suitable version "1.74.0", minimum required is "1.74.0")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/harrylex/Documentos/proyectos en Clion/DenseSubgraph/cmake-build-debug

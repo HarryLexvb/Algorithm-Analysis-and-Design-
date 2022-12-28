@@ -1,0 +1,3 @@
+/home/harrylex/Documentos/proyectos en Clion/DenseSubgraph/cmake-build-debug/CMakeFiles/DenseSubgraph.dir
+/home/harrylex/Documentos/proyectos en Clion/DenseSubgraph/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/harrylex/Documentos/proyectos en Clion/DenseSubgraph/cmake-build-debug/CMakeFiles/rebuild_cache.dir
