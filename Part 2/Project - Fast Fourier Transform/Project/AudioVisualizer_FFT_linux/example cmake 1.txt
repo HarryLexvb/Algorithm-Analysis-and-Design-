@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.20)
+project(pruebas)
+
+set(CMAKE_CXX_STANDARD 14)
+
+if (UNIX)
+    add_compile_options(-Wall -Wextra -Weffc++)
+
+    if (CMAKE_BUILD_TYPE MATCHES Debug)
+        add_definitions(-DDEBUG=1)
+    elseif (CMAKE_BUILD_TYPE MATCHES Release)
+        add_definitions(-DRELEASE=1)
+    endif ()
+endif ()
+
+
+
+add_executable(pruebas main.cpp Application.cpp Application.h AudioVisualizer.cpp AudioVisualizer.h)
+target_link_libraries(pruebas  sfml-audio sfml-system sfml-window sfml-graphics)
