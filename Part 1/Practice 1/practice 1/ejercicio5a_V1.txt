@@ -1,0 +1,31 @@
+int dp[200];
+
+void print(int idx){
+    for (int i = 1; i < idx; ++i)
+        cout << dp[i] << "\t";
+    cout << endl;
+}
+
+void solve(int remSum, int maxVal, int idx, int &count){
+    if(remSum == 0){
+        print(idx);
+        count++;
+        return;
+    }
+    for (int i = maxVal; i >= 1; --i)
+    {
+        if (i > remSum)
+            continue;
+        else if(i <= remSum){
+            dp[idx] = i;
+            solve(remSum - i, i, idx+1, count);
+        }
+
+    }
+}
+
+int main(){
+    int n = 0, count = 0;
+    cout << "ingrese el valor de n: "; cin >> n;
+    solve(n, n, 1, count);
+}

@@ -1,0 +1,7 @@
+Duración 40 minutos.
+Abierto de 11.30 a 13.00 am.
+Es secuencial, es decir, no se puede regresar a preguntas anteriores.
+La primera parte tiene preguntas teóricas, segunda un desarrollo el cual deberá ser subido en un archivo .pdf con screenshots de los programas ejecutándose.
+No abrir el examen hasta el día de la prueba, si abre entonces no podrá dar otro examen.
+Si existe algún indicio de copia, plagio o examen grupal, por mínimo que sea el examen queda anulado con nota cero.
+Hay algunas preguntas donde se debe de escribir, no utilizar espacios sino _ (sub-guion) y sin espacios al inicio o al final de cada palabra, frase u oración.

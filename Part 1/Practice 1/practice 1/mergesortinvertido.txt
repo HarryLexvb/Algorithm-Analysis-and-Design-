@@ -1,0 +1,474 @@
+C++ Please
+
+Inversion Count shows how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0. If the array is sorted in reverse order, that inversion count is maximum.
+
+Meaning: two elements a[i] and a[j] form an inversion IF a[i] > a[j] and i < j
+
+For example:
+
+Sequence 2, 4, 1, 3 ,5 has three inversions (2,1) (4,1) (4,3). What would the complexity of brute force approach be?
+
+Code an O(nlog(n)) algorithm to count the number of inversions. Hint - piggy back on the merging step of the mergesort algorithm.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Complete the code with the functions indicated to count inversions:
+
+// Based off of mergesort
+
+#include <vector>
+
+#include <algorithm> // For copy
+
+using namespace std;
+
+int mergeInv(vector<int>& nums, vector<int>& left, vector<int>& right) {
+
+// You will need this helper function that calculates the inversion while merging
+
+// Your code here
+
+}
+
+int countInv(vector<int>&nums) {
+
+// Your code here
+
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Use this code as test code to test the functions:
+
+/* Count the number of inversions in O(n log n) time */
+
+#include <iostream>
+
+#include <vector>
+
+using namespace std;
+
+int countInv(vector<int>& numvec);
+
+int main()
+
+{
+
+    int n;
+
+    vector<int> numvec{4, 5, 6, 1, 2, 3};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl; // Should be 9
+
+    
+
+    numvec = {1, 2, 3, 4, 5, 6};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl; // Should be 0
+
+    
+
+    numvec = {6, 5, 4, 3, 2, 1};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl;  // Should be 15
+
+    
+
+    numvec = {0, 0, 0, 0, 0, 0};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl;;  // Should be 0
+
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+mergesort algorithm.
+
+#include <iostream>
+
+#include <vector>
+
+#include <algorithm> // For copy
+
+#include <random> // For random number generators
+
+#include <chrono> // For timinig measurements
+
+using namespace std;
+
+void print(vector<int>& vec) { //*** helper function which will print the every element in the vector***
+
+    for (auto ele : vec)
+
+        cout << ele << " ";
+
+    cout << endl;
+
+}
+
+void merge(vector<int>& nums, vector<int>& left, vector<int>& right) {
+
+    int i = 0, j = 0, k = 0;
+
+    while ((j < left.size()) && (k < right.size())) {
+
+        if (left[j] <= right[k]) {
+
+            nums[i] = left[j];
+
+            i++;
+
+            j++;
+
+        } else {
+
+            nums[i] = right[k];
+
+            i++;
+
+            k++;
+
+        }
+
+    }
+
+    while(j < left.size())  { // ***Remaining elements of left***
+
+        nums[i] = left[j];
+
+        i++;
+
+        j++;
+
+    }
+
+    while(k < right.size()) {
+
+        nums[i] = right[k];
+
+        i++;
+
+        k++;
+
+    }
+
+
+
+}
+
+void mergesort(vector<int>&nums) { //RETURN from here
+
+    // Base case - one element, nothing to sort
+
+    if (nums.size() > 1) {
+
+        int mid = nums.size()/2;
+
+        vector<int> left(mid);
+
+        vector<int> right(nums.size()-mid);
+
+        copy(nums.begin(), nums.begin() + mid, left.begin());
+
+        copy(nums.begin() + mid, nums.end(), right.begin());
+
+        mergesort(left);
+
+        mergesort(right);
+
+        merge(nums, left, right);
+
+        
+
+    }
+
+}
+
+Expert Answerinformation icon
+Anonymous's Avatar
+Anonymous answered thisWas this answer helpful?
+Thumbs up inactive0Thumbs down inactive0
+59 answers
+I have used the code of merge provided by you and made some changes to count the inversion
+
+I have introduced a variable named inversion count and count the no of inversion in every recurrsion call and by adding all that you can get no of inversion.
+
+inv_count +=  (left.size() - j);
+I have used the above code in mergeInv function,
+
+In merge process, let j is used for indexing left sub-array and k for right sub-array. At any step in merge(), if left[j] is greater than right[k], then there are (left.size() – j) inversions.
+
+#include <iostream>
+
+#include <vector>
+
+#include <algorithm> // For copy
+
+#include <random> // For random number generators
+
+#include <chrono> // For timinig measurements
+
+using namespace std;
+
+void print(vector<int>& vec) { //*** helper function which will print the every element in the vector***
+
+    for (auto ele : vec)
+
+        cout << ele << " ";
+
+    cout << endl;
+
+}
+
+int mergeInv(vector<int>& nums, vector<int>& left, vector<int>& right, int mid) {
+
+    int i = 0, j = 0, k = 0;
+    int inv_count=0;
+
+    while ((j < left.size()) && (k < right.size())) {
+
+        if (left[j] <= right[k]) {
+            nums[i] = left[j];
+            i++;
+            j++;
+        } else {
+            inv_count +=  (left.size() - j);
+            nums[i] = right[k];
+
+            i++;
+            k++;
+            
+        }
+
+    }
+
+    while(j < left.size())  { // ***Remaining elements of left***
+
+        nums[i] = left[j];
+
+        i++;
+
+        j++;
+
+    }
+
+    while(k < right.size()) {
+
+        nums[i] = right[k];
+
+        i++;
+
+        k++;
+
+    }
+    
+    return inv_count;
+
+
+}
+
+
+
+
+int countInv(vector<int>& nums){
+    int inv_count=0;
+    if (nums.size() > 1) {
+
+        int mid = nums.size()/2;
+
+        vector<int> left(mid);
+
+        vector<int> right(nums.size()-mid);
+
+        copy(nums.begin(), nums.begin() + mid, left.begin());
+
+        copy(nums.begin() + mid, nums.end(), right.begin());
+
+        inv_count+=countInv(left);
+        // cout<<inv_count;
+        inv_count+=countInv(right);
+        // cout<<inv_count;
+        inv_count+=mergeInv(nums, left, right, mid);
+        // cout<<inv_count;
+        
+        if(inv_count==14)
+        print(nums);
+
+    }
+    return inv_count;
+}
+
+int main()
+
+{
+
+    int n;
+
+    vector<int> numvec{4, 5, 6, 1, 2, 3};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl; // Should be 9
+    // print(numvec);
+    
+
+    numvec = {1, 2, 3, 4, 5, 6};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl; // Should be 0
+    
+    // print(numvec);
+    
+
+    numvec = {6, 5, 4, 3, 2, 1};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl;  // Should be 15
+
+    // print(numvec);
+    
+
+    numvec = {0, 0, 0, 0, 0, 0};
+
+    n = countInv(numvec);
+
+    cout << "Number of inversions " << n << endl;;  // Should be 0
+
+}
+
+
+///////////////////////////////////////////////////7OTRA SOLUCION /////////////////////////////////////////////////////////////
+2. Let A[1 · · · n] be an array of n distinct numbers (i.e., no two numbers are equal). If i < j and A[i] > A[j], then the pair (A[i], A[j]) is called an inversion of A.
+
+(a) List all inversions of the array {4, 2, 9, 1, 7}. (5 points)
+
+(b) What array with elements from the set {1, 2, . . . , n} has the most inversions? How many inversions does it have? (5 points)
+
+(c) Give a divide-and-conquer algorithm that computes the number of inversions in array A in O(n log n) time. (Hint: Modify merge sort.) (20 points)
+
+Expert Answerinformation icon
+Vivek Kashyap's Avatar
+Vivek Kashyap answered thisWas this answer helpful?
+Thumbs up inactive0Thumbs down inactive1
+935 answers
+4,2,9,1,7
+0 1 2 3 4
+
+0 < 1 and 4 > 2 Yes so --> 1
+0 < 2 and 4 > 9 No so --> 0
+0 < 3 and 4 > 1 Yes so --> 1
+0 < 4 and 4 > 7 No so --> 0
+1 < 2 and 2 > 9 No so --> 0
+1 < 3 and 2 > 1 Yes so --> 1
+1 < 4 and 2 > 7 Yes so --> 0
+2 < 3 and 9 > 1 Yes so --> 1
+2 < 4 and 9 > 7 Yes so --> 1
+3 < 4 and 1 > 2 No so --> 0
+
+total = 5
+
+b)
+1,2,3.....n
+
+for n=1:
+if you see 1 is smaller than all the other items.
+
+for n=2:
+if you see 2 is smaller than all the other items.
+
+You see all the other element same as the above.
+there is no inversion.
+
+so number of inversion = 0
+
+c)
+
+#include<iostream>
+#include<bits/stdc++.h>
+
+using namespace std;
+
+//int inversion=0;
+int Merge(int A[],int B[],int start,int mid,int end)
+{
+    int inversion=0;
+    int k=start;
+    int oldstart=start;
+    int mid1=mid;
+    mid++;
+    while(start<=mid1 &&mid<=end ){
+        if(A[start]<=A[mid]){
+            B[k]=A[start];
+            k++;
+            start++;
+        }
+        else{
+            B[k]=A[mid];
+            inversion+=mid-k;
+            k++;
+            mid++;
+        }
+    }
+    while(start<=mid1){
+        B[k]=A[start];
+        k++;
+        start++;
+    }
+    while(mid<=end){
+        B[k]=A[mid];
+        k++;
+        mid++;
+    }
+    start=oldstart;
+    while(start<=end){
+        A[start]=B[start];
+        start++;
+    }
+    return inversion;
+}
+
+
+
+
+int Mergesort(int A[],int B[],int start,int end)
+{   int inversion=0;
+    if(start<end)
+    {
+        int mid=start+(end-start)/2;
+        inversion+=Mergesort(A,B,start,mid);
+        inversion+=Mergesort(A,B,mid+1,end);
+        inversion+=Merge(A,B,start,mid,end);
+    }
+    return inversion;
+}
+
+
+
+int main(){
+
+int A[5]={4, 2, 9, 1, 7};
+int B[5]={0};
+
+int inversion=Mergesort(A,B,0,3);
+for(int i=0;i<=3;i++){
+    cout<<A[i]<<" ";
+}
+cout<<"\nnumberOfInversion: "<<inversion;
+
+return 1;
+}
+
+
+In the merge sort we handle the case so merge sort time complexity is O(nlogn).
+
+so this code time complexity is (nlogn).

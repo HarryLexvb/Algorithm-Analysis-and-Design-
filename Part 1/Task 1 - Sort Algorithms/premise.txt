@@ -1,0 +1,23 @@
+As mentioned in class, this assignment involves the presentation of a graph comparing the execution times of a list of sorting algorithms. 
+
+Deliverable:
+
+A pdf file is uploaded with the comparison of the algorithms and the code for each algorithm.
+
+List of algorithms
+
+Mergesort
+
+Quicksort
+
+Heapsort
+
+Bubblesort
+
+Insertionsort
+
+Selectionsort
+
+You must upload the pdf file for review in class.
+
+get 14 for copy and paste hahaha

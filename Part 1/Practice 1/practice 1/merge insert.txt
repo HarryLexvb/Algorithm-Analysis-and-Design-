@@ -1,0 +1,484 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+const int var_k = 10;
+
+template<class T>
+void print(T *arr, int size){
+  for(int i = 0; i < size - 1; ++i)
+    cout << *(arr+i) << " | "; 
+}
+
+template<class T>
+void insertionSort (T *arr, int min, int max){
+  int key;
+  for (int j = min + 1; j <= max; ++j){
+    
+    key = *(arr+j); 
+
+    int i = j-1; 
+    while (i >= min and *(arr + i) > key){
+      arr[i+1] = *(arr + i); 
+      --i; 
+    }
+   arr[i + 1] = key; 
+  } 
+}
+
+void insertion(long long *arr, int size){
+  for (int j = 2; j < size; ++j)
+  {
+    int key = arr[j]; 
+    int i = j -1; 
+    while(i > 0 and arr[i] > key){
+      arr[i + 1] = arr[i]; 
+      i = i - 1; 
+    }
+    arr[i + 1] = key; 
+  }
+  print(arr, size); 
+}
+
+template<class T>
+void merge(T *arr, int min, int max, int mid){
+  int i = min, j = mid + 1, cont = 0, *temp; 
+
+  temp = new int[max - min + 1];
+
+  while(i <= mid and j <= max)
+    temp[cont++] = (arr[i] < arr[j]) ? arr[i++] : arr[j++];
+  while(i <= mid)
+    temp[cont++] = arr[i++]; 
+  while(j <= max)
+    temp[cont++] = arr[j++]; 
+  for(i = min; i <= max; ++i)
+    arr[i] = temp[i - min]; 
+}
+
+template<class T>
+void mergeSort(T *arr, int min, int max){
+  if((max - min + 1) <= var_k)
+    insertionSort(arr, min, max); 
+  else{
+    int mid = (max + min)/2; 
+    mergeSort(arr, min, mid);
+    mergeSort(arr, mid + 1, max);
+
+    merge(arr, min, max, mid); 
+  } 
+}
+
+int main(){
+  
+  long long size = 15, arr[size]; 
+
+  for(long long i = 0; i < size; ++i)
+    *(arr+i) = rand()%size; 
+
+  mergeSort<long long>(arr, 0, size - 1); 
+  for(int i = 0; i < size - 1; ++i)
+    cout << *(arr+i) << " | "; 
+  //print(arr, size); 
+
+  //insertionSort(arr, size-1, var_k);
+  //insertion(arr, size); 
+  
+}
+
+/*
+#include <iostream>
+using namespace std; 
+
+void print(int *arr, int size){
+  for(int i = 0; i < size; ++i)
+    cout << *(arr+i) << " | "; 
+}
+
+void insertion_sort(int *arr, int n){
+  int key; 
+  for (int i = 1; i < n; ++i){
+    key = arr[i];
+    int j = i - 1;
+    while (j >= 0 and arr[j] > key){
+      arr[j + 1] = arr[j];
+      j = j - 1;
+    }
+    arr[j + 1] = key;
+  }
+}
+
+int Merge(int A[],int p, int q,int r){
+
+    int n1,n2,i,j,k; 
+    
+    n1=q-p+1;
+    n2=r-q;             
+    int L[n1],R[n2];
+
+    for(i=0;i<n1;i++)
+        L[i]=A[p+i];
+
+    for(j=0;j<n2;j++)    
+        R[j]=A[q+j+1];
+    
+    i=0,j=0;
+    for(k=p;i<n1&&j<n2;k++){
+        if(L[i]<R[j])
+            A[k]=L[i++];
+        else
+            A[k]=R[j++];
+    }
+
+    while(i<n1)             
+        A[k++]=L[i++];
+
+    while(j<n2)
+        A[k++]=R[j++];
+}
+
+int MergeSort(int *A,int p,int r, int k)    
+{
+    int q;   
+    if((r - p + 1) <= k)
+    //insertionSort(arr, min, max);
+      insertion_sort(A, r);                              
+    else{
+        q=(p+r)/2;
+        MergeSort(A,p,q, k);
+        MergeSort(A,q+1,r, k);
+        Merge(A,p,q,r);
+    }
+}
+
+int main (){
+  int var_k = 15;  
+  int size = 30, arr[size];
+
+  for(long long i = 0; i < size; ++i)
+    *(arr+i) = rand()%size; 
+
+  MergeSort(arr,0,size-1, 10); 
+  print(arr, size); 
+}*/
+
+
+/*
+#include <iostream>
+
+
+int comparisons = 0;
+int swaps = 0;
+
+void mergesort(int x[], int l, int r);
+
+void insertionSort(int x[],int start, int end);
+
+int K = 34;
+
+int main() {
+  int x[] = {716, 526, 412, 893, 718, 1000, 913, 643, 937, 550, 363, 472, 920, 802, 810, 898, 894, 978, 326, 420, 463, 644, 19, 817, 947, 625, 524, 602, 873, 569, 562, 219, 645, 122, 91, 739, 206, 881, 793, 356, 922, 940, 172, 631, 346, 923, 728, 515, 605, 239, 549, 229, 195, 653, 901, 357, 882, 883, 539, 210, 862, 193, 767, 502, 647, 542, 735, 110, 272, 388, 545, 202, 897, 205, 639, 633, 933, 582, 348, 428, 642, 191, 199, 58, 343, 546, 505, 276, 719, 501, 21, 445, 444, 62, 217, 949, 35, 664, 273, 841, 18, 141, 295, 597, 511, 509, 806, 560, 211, 945, 811, 290, 382, 359, 196, 829, 870, 827, 896, 465, 673, 274, 832, 287, 13, 604, 333, 848, 658, 731, 512, 500, 577, 864, 751, 638, 158, 129, 722, 406, 252, 114, 813, 608, 266, 443, 387, 948, 259, 544, 383, 48, 232, 541, 77, 322, 931, 819, 682, 696, 998, 292, 342, 297, 140, 503, 180, 26, 57, 474, 693, 176, 175, 5, 254, 438, 784, 102, 868, 119, 772, 23, 794, 532, 281, 548, 866, 588, 354, 160, 741, 871, 723, 269, 659, 3, 135, 395, 416, 351, 98, 153, 87, 61, 764, 594, 656, 223, 565, 709, 436, 655, 833, 803, 840, 986, 918, 516, 950, 970, 606, 989, 773, 271, 4, 168, 235, 779, 242, 558, 433, 452, 536, 358, 381, 470, 884, 337, 895, 830, 31, 431, 79, 296, 362, 213, 109, 963, 285, 453, 613, 589, 105, 774, 649, 204, 478, 52, 861, 324, 368, 317, 320, 590, 201, 506, 721, 939, 300, 278, 676, 713, 283, 919, 904, 746, 227, 486, 761, 230, 994, 394, 234, 24, 418, 9, 146, 97, 564, 537, 749, 117, 705, 755, 903, 691, 115, 145, 127, 370, 417, 34, 208, 365, 138, 96, 706, 113, 640, 424, 902, 163, 151, 253, 268, 410, 280, 149, 154, 491, 409, 790, 448, 697, 93, 144, 467, 216, 76, 286, 192, 442, 614, 226, 907, 805, 15, 347, 629, 490, 435, 801, 284, 576, 612, 592, 166, 899, 189, 628, 781, 996, 523, 468, 734, 938, 796, 744, 408, 142, 878, 449, 299, 279, 766, 341, 610, 30, 980, 715, 159, 182, 888, 584, 314, 995, 510, 785, 824, 251, 425, 745, 247, 181, 90, 132, 581, 798, 680, 930, 929, 809, 246, 956, 69, 908, 55, 116, 566, 975, 60, 207, 99, 879, 618, 776, 890, 916, 128, 384, 174, 738, 228, 699, 663, 130, 858, 792, 345, 323, 964, 517, 747, 430, 488, 672, 464, 340, 842, 70, 661, 601, 483, 482, 514, 8, 121, 674, 869, 559, 255, 111, 725, 992, 823, 306, 20, 414, 580, 270, 876, 496, 769, 757, 350, 56, 997, 173, 310, 73, 167, 10, 851, 687, 853, 494, 941, 315, 293, 924, 934, 736, 834, 67, 836, 353, 264, 504, 364, 263, 147, 415, 860, 677, 294, 237, 585, 999, 427, 59, 461, 441, 637, 372, 732, 782, 650, 607, 724, 921, 331, 856, 94, 63, 783, 700, 627, 38, 88, 12, 867, 786, 712, 822, 123, 660, 703, 984, 768, 572, 248, 988, 243, 669, 936, 960, 553, 258, 275, 617, 84, 344, 178, 249, 540, 513, 917, 905, 748, 313, 843, 336, 262, 743, 36, 835, 458, 914, 131, 54, 14, 800, 845, 329, 891, 92, 641, 892, 563, 521, 787, 568, 397, 912, 17, 439, 857, 50, 302, 849, 355, 591, 224, 825, 328, 666, 615, 241, 758, 968, 754, 338, 393, 854, 583, 303, 926, 476, 72, 983, 961, 1, 325, 780, 720, 567, 531, 518, 977, 185, 775, 380, 212, 837, 7, 484, 535, 298, 855, 466, 593, 301, 411, 717, 586, 11, 440, 714, 579, 993, 137, 675, 574, 701, 877, 215, 635, 225, 797, 423, 335, 222, 889, 698, 265, 555, 657, 850, 307, 686, 124, 875, 985, 765, 74, 820, 630, 184, 528, 455, 389, 78, 944, 525, 32, 818, 759, 695, 777, 967, 493, 245, 946, 935, 859, 527, 683, 308, 480, 678, 402, 349, 616, 762, 183, 543, 194, 753, 702, 291, 390, 186, 508, 39, 16, 599, 46, 25, 330, 188, 282, 399, 152, 595, 958, 82, 622, 85, 81, 826, 522, 816, 376, 681, 487, 760, 104, 434, 603, 952, 957, 807, 979, 981, 179, 221, 86, 220, 609, 231, 808, 620, 689, 839, 910, 236, 626, 450, 327, 422, 378, 68, 169, 838, 815, 238, 497, 2, 651, 710, 789, 369, 621, 22, 668, 573, 711, 646, 162, 473, 460, 100, 457, 374, 157, 973, 361, 557, 667, 519, 729, 955, 554, 972, 688, 120, 969, 636, 312, 943, 479, 187, 927, 419, 64, 750, 654, 155, 171, 770, 507, 477, 469, 499, 880, 951, 366, 814, 360, 730, 987, 421, 289, 990, 47, 752, 6, 40, 611, 685, 865, 596, 250, 305, 538, 707, 332, 118, 959, 108, 623, 240, 692, 915, 316, 652, 377, 426, 533, 679, 80, 632, 148, 233, 966, 475, 459, 106, 900, 530, 928, 520, 648, 311, 788, 906, 143, 847, 156, 886, 571, 379, 587, 799, 974, 164, 852, 309, 371, 51, 112, 339, 125, 44, 318, 763, 575, 256, 392, 953, 932, 29, 165, 367, 529, 170, 401, 101, 161, 288, 352, 456, 404, 437, 821, 624, 727, 65, 49, 407, 66, 177, 982, 684, 28, 726, 485, 139, 198, 27, 598, 396, 909, 495, 708, 95, 334, 261, 373, 413, 53, 874, 277, 925, 665, 89, 190, 812, 134, 600, 218, 214, 778, 260, 962, 976, 971, 492, 828, 45, 454, 991, 619, 107, 203, 694, 375, 257, 534, 756, 37, 42, 831, 704, 662, 740, 41, 942, 690, 471, 429, 733, 197, 319, 670, 33, 742, 75, 791, 863, 965, 795, 570, 561, 872, 200, 244, 498, 634, 386, 403, 83, 304, 71, 954, 133, 451, 150, 405, 447, 267, 552, 400, 911, 446, 887, 547, 432, 481, 462, 398, 126, 391, 321, 489, 885, 43, 551, 771, 209, 846, 556, 804, 844, 136, 103, 671, 737, 385, 578};
+
+// insertionSort(x,10);
+int sizeX= sizeof(x)/sizeof(x[0]) ;
+mergesort(x, 0, sizeX-1);
+
+
+  for(int i =0;i<sizeX;i++){
+    std::cout << x[i] << " ";
+  }
+    // std::cout << "\nSWAPS: " << swaps;
+
+    std::cout << "\nCOMPARISONS: " << comparisons;
+
+
+}
+
+
+void insertionSort(int arr[], int start,int end)
+{
+    int i, key, j;
+    for (i = start +1 ; i < end; i++)
+    {
+        key = arr[i];
+        j = i - 1;
+ 
+        while (j >= 0 && arr[j] > key)
+        {
+                comparisons++;
+
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void insertionSort2(int x[],int start, int end){
+
+  for(int i =start; i < end;i++){
+
+    for (int j= i; j!= 0;j--){
+      comparisons++;
+      if(x[j] < x[j-1]){
+
+        int temp = x[j-1];
+        x[j-1] = x[j];
+        x[j] = temp;
+        swaps++;
+      }
+else{
+break;
+}
+
+    }
+  }
+
+
+
+
+}
+
+
+void mergesort(int x[], int l, int r) {
+
+  if (l >= r)
+    return;
+
+
+
+  int mid = (l + r) / 2;
+
+if(r - l  < K){
+
+  insertionSort(x, l,r+1);
+
+}else{
+
+  mergesort(x, l, mid);
+  mergesort(x, mid + 1, r);
+
+
+
+  int i = l; 
+  int j = mid + 1; 
+  int k = 0; 
+
+  int tmp[r - l + 1];
+
+  while (i <= mid && j <= r) {
+      comparisons++;
+    if (x[i] >= x[j]) {
+      tmp[k] = x[j];
+      j++;
+    } else {
+      tmp[k] = x[i];
+      i++;
+    }
+       swaps++;
+
+
+    k++;
+
+  }
+
+  while (i <= mid) {
+   
+    tmp[k] = x[i];
+    i++;
+    k++;
+
+  }
+
+  while (j <= r) {
+   
+    tmp[k] = x[j];
+    j++;
+    k++;
+
+  }
+
+  for (i = 0; i < k; i++) x[l + i] = tmp[i];
+}
+
+}*/
+
+/*const int k = 16; 
+
+void wmerge(int *, int, int, int, int, int); 
+void wsort(int *, int, int, int);
+void imsort(int *, int, int );
+
+swap(int *arr, int i, int j) {
+        int tmp = arr[i]; 
+        arr[i] = arr[j]; 
+        arr[j] = tmp;
+}
+
+void print(int *arr, int size){
+  for(int i = 0; i < size - 1; ++i)
+    cout << *(arr+i) << " | "; 
+}
+
+int main(){
+
+  int var_k = 15;  
+  int size = 30, arr[size];
+
+  for(int i = 0; i < size; ++i)
+    *(arr+i) = rand()%size; 
+
+  imsort(arr, 0, size); 
+  print(arr, size);
+
+}
+
+
+// a[w:] = merged a[i:m]+a[j:n]
+// a[i:] = reordered a[w:]
+void wmerge(int *arr, int i, int m, int j, int n, int w){
+  while (i < m && j < n)
+    swap(arr, w++, arr[i] < arr[j] ? i++ : ++j);
+
+  while (i < m)
+    swap(arr, w++, ++i);
+
+  while (j < n)
+    swap(arr, w++, ++j);
+
+}
+
+// a[w:]  = sorted    a[b:e]
+// a[b:e] = reordered a[w:]
+void wsort(int *arr, int b, int e, int w){
+  int m;
+  if (e - b > 1) {
+      m = b + (e - b) / 2;
+      imsort(arr, b, m);
+      imsort(arr, m, e);
+      wmerge(arr, b, m, m, e, w);
+  }
+  else
+      while (b < e)
+          swap(arr, b++, w++);
+}
+
+// inplace merge sort a[b:e]
+void imsort(int *a, int b, int e) {
+    int m, n, w, x;
+    int t;
+    // if <= k elements, use insertion sort
+    if (e - b <= k){
+        for(n = b+1; n < e; n++){
+           t = a[n];
+           m = n-1;
+            while(m >= b && a[m] > t){
+                a[m+1] = a[m];
+                m--;}
+            a[m+1] = t;}
+        return;
+    }
+    if (e - b > 1) {
+        // split a[b:e]
+        m = b + (e - b) / 2;
+        w = b + e - m;
+        // wsort -> a[w:e] = sorted    a[b:m]
+        //          a[b:m] = reordered a[w:e]
+        wsort(a, b, m, w);
+        while (w - b > 2) {
+            // split a[b:w], w = new mid point
+            n = w;
+            w = b + (n - b + 1) / 2;
+            x = b + n - w;
+            // wsort -> a[b:x] = sorted    a[w:n]
+            //          a[w:n] = reordered a[b:x]
+            wsort(a, w, n, b);
+            // wmerge -> a[w:e] = merged    a[b:x]+a[n:e]
+            //           a[b:x] = reordered a[w:n]
+            wmerge(a, b, x, n, e, w);
+        }
+        // insert a[b:w] into a[b:e] using left shift
+        for (n = w; n > b; --n) {
+            t = a[n-1];
+            for (m = n; m < e && a[m] < t; ++m)
+                a[m-1] = a[m];
+            a[m-1] = t;
+        }
+    }
+}*/
+
+/*
+int K = 15; 
+ 
+void print(int *arr, int size){
+  for(int i = 0; i < size - 1; ++i)
+    cout << *(arr+i) << " | "; 
+}
+
+void insertionSort(int *arr, int front, int rear) {
+    register int i, j;
+    int key;
+ 
+    for (i = front + 1; i <= rear; ++i) {
+        key = arr[i];
+        j = i - 1;
+        while (j >= front and arr[j] > key) {
+            arr[j + 1] = arr[j];
+            --j;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+void Merge(int *arr, int front, int mid, int rear){
+    int n1 = mid - front + 1;
+    int n2 = rear - mid;
+ 
+    int *L = new int[n1 + 1];
+    int *R = new int[n2 + 1];
+ 
+    register unsigned i = 0;
+    for(; i < n1; ++i)
+        L[i] = arr[front + i];
+ 
+    register unsigned j = 0;
+    for(; j < n2; ++j)
+        R[j] = arr[mid + 1 + j];
+ 
+    L[n1] = INT_MAX;
+    R[n2] = INT_MAX;
+    i = j = 0;
+
+    register unsigned k = front;
+    for(; k <= rear; ++k){
+        if(L[i] <= R[j])
+            arr[k] = L[i++];
+        else
+            arr[k] = R[j++];
+    }
+}
+ 
+void HybridMergesort(int *arr, int front, int rear){
+    if(rear - front < K)
+        insertionSort(arr, front, rear);
+    if(front < rear){
+       int mid = (rear + front) >> 1;
+       HybridMergesort(arr, front, mid);
+       HybridMergesort(arr, mid + 1, rear);
+       Merge(arr, front, mid, rear);
+    }
+}
+
+int main(){
+
+  int var_k = 15;  
+  int size = 100, arr[size];
+
+  for(long long i = 0; i < size; ++i)
+    *(arr+i) = rand()%size; 
+ 
+  //print(arr, size); cout << endl;
+  HybridMergesort(arr, 0, size - 1);
+  print(arr, size);
+}*/

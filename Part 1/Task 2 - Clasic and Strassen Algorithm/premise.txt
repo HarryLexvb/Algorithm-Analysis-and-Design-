@@ -1,0 +1,10 @@
+Matrix Multiplication
+The task consists of 
+
+Program two matrix multiplication algorithms.
+Test the codes with the matrices that will be enabled in the attached file. 
+Generate a pdf file where you place the two codes and screenshots of the programs running with small matrices 
+Generate text files with the output of your codes that have the following format
+Only the matrix without additional messages
+A space between each number and a line break between each row
+The matrices to be multiplied are A*B and apart C*D

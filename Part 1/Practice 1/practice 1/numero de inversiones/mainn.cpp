@@ -1,0 +1,81 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void print(vector<int>& vec) {
+    for (auto ele : vec)
+        cout << ele << " ";
+    cout << endl;
+}
+
+int mergeInv(vector<int>& nums, vector<int>& left, vector<int>& right, int mid) {
+    int i = 0, j = 0, k = 0;
+    int inv_count=0;
+    while ((j < left.size()) && (k < right.size())) {
+        if (left[j] <= right[k]) {
+            nums[i] = left[j];
+            i++;
+            j++;
+        } else {
+            inv_count +=  (left.size() - j);
+            nums[i] = right[k];
+            i++;
+            k++;
+        }
+    }
+    while(j < left.size())  {
+        nums[i] = left[j];
+        i++;
+        j++;
+    }
+
+    while(k < right.size()) {
+        nums[i] = right[k];
+        i++;
+        k++;
+    }
+    return inv_count;
+}
+
+int countInv(vector<int>& nums){
+    int inv_count=0;
+    if (nums.size() > 1) {
+        int mid = nums.size()/2;
+        vector<int> left(mid);
+        vector<int> right(nums.size()-mid);
+        copy(nums.begin(), nums.begin() + mid, left.begin());
+        copy(nums.begin() + mid, nums.end(), right.begin());
+        inv_count+=countInv(left);
+        // cout<<inv_count;
+        inv_count+=countInv(right);
+        // cout<<inv_count;
+        inv_count+=mergeInv(nums, left, right, mid);
+        // cout<<inv_count;
+        if(inv_count==14)
+            print(nums);
+    }
+    return inv_count;
+}
+
+int main(){
+    int n;
+    vector<int> numvec{4, 5, 6, 1, 2, 3};
+    n = countInv(numvec);
+    cout << "numero de inversiones: " << n << endl;
+    //print(numvec);
+    numvec = {1, 2, 3, 4, 5, 6};
+    n = countInv(numvec);
+    cout << "numero de inversiones: " << n << endl;
+    // print(numvec);
+    numvec = {6, 5, 4, 3, 2, 1};
+    n = countInv(numvec);
+    cout << "numero de inversiones: " << n << endl;
+    // print(numvec);
+    numvec = {0, 0, 0, 0, 0, 0};
+    n = countInv(numvec);
+    cout << "numero de inversiones: " << n << endl;
+}
+
+
+

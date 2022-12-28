@@ -1,0 +1,9 @@
+https://github.com/anarchuser/Timsort/tree/master/Source
+https://github.com/Mostafa-wael/Hybrid-Sorting-Algorithm
+https://github.com/Cheejyg/Integration-of-Mergesort-and-Insertion-Sort
+https://stackoverflow.com/questions/39936457/insertion-and-merge-sorts-does-not-work-on-big-data-sets-c
+https://appdividend.com/2022/01/21/merge-sort-in-cpp/
+https://stackoverflow.com/questions/68961659/hybrid-mergesort-and-insertion-sort
+https://quickgrid.wordpress.com/tag/mergesort-insertion-sort-hybrid/ ----------------------------------------------> sirve
+https://stackoverflow.com/questions/26478139/properly-combining-merge-sort-and-insertion-sort-in-c
+https://stackoverflow.com/questions/64272374/properly-implementing-a-merge-insertion-sort-in-c-and-its-possible-use
