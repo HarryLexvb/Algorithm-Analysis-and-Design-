@@ -1,0 +1,8 @@
+- Tiene una duración de 30 minutos
+
+- Es secuencial no se puede retroceder
+
+Teoría
+Desarrollo
+Desarrollo
+- Preguntas aleatórias
