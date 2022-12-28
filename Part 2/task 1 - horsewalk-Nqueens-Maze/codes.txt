@@ -1,0 +1,141 @@
+#include <bits/stdc++.h>
+// #define MIN(x, y) (((x) < (y)) ? (x) : (y)) 
+//coins cambio de moneda 
+using namespace std; 
+
+const int n = 3; 
+const int INF = 1000000; 
+int coins[n] = {2,3,5};
+int memo[100001]; 
+
+int change(int valor){
+    if(valor < 0)
+        return INF; 
+    if(valor == 0)
+        return 0; 
+    if(memo[valor] != -1)
+        return memo[valor]; 
+
+    int res = INF ; 
+    for(int i = 0; i < n; ++i) 
+        res = min(res, change(valor - coins[i])); 
+
+    return memo[valor] = res+1;
+}
+int main(){
+    memset(memo, -1, sizeof memo); 
+    int valor = 7; 
+    for (int i = 0; i <= valor; ++i)
+        cout << change(i) << endl; 
+}
+https://gist.github.com/briandiaz/5774867
+https://github.com/jhonatan-dev/Problema_Cambio_Moneda_PD_CPlusPlus/blob/master/main.cpp
+
+#include <forward_list>
+#include <regex>
+#include <iostream>
+#include <vector>
+//coins cambio de moneda
+using namespace std;
+
+const int INF = 1000000;
+
+int bk(int n){
+    if(n == 0)
+        return 0;
+    if(n < 0)
+        return INF;
+
+    return (min(bk(n-2), bk(n-3)), min(bk(n-3), bk(n-5)), min(bk(n-2), bk(n-5)))+1;
+}
+
+int minCoins(int coins[], int m, int V){
+    // base case
+    if (V == 0) return 0;
+
+    // Initialize result
+    int res = INT_MAX;
+
+    // Try every coin that has smaller value than V
+    for (int i = 0; i < m; i++){
+        if (coins[i] <= V){
+            int sub_res = minCoins(coins, m, V - coins[i]);
+            // Check for INT_MAX to avoid overflow and see if
+            // result can minimized
+            if (sub_res != INT_MAX and sub_res + 1 < res)
+                res = sub_res + 1;
+        }
+    }
+    return res;
+}
+
+int coinChange(vector<int>& coins, int amount) {
+    int n = coins.size();
+    int dp[n+1][amount+1];
+
+    for(int i=0;i<=n;++i)
+    {
+        for(int j=0;j<=amount;++j)
+        {
+            if(j==0)
+                dp[i][j] = 0;
+            else if(i==0)
+                dp[i][j] = 1e5;
+            else if(coins[i-1]>j)
+                dp[i][j] = dp[i-1][j];
+            else
+                dp[i][j] = min(1 + dp[i][j-coins[i-1]], dp[i-1][j]);
+        }
+    }
+    return dp[n][amount]>1e4 ? -1:dp[n][amount];
+}
+
+int minCoinsdp(int coins[], int m, int V)
+{
+    // table[i] will be storing the minimum number of coins
+    // required for i value.  So table[V] will have result
+    int table[V+1];
+
+    // Base case (If given value V is 0)
+    table[0] = 0;
+
+    // Initialize all table values as Infinite
+    for (int i=1; i<=V; i++)
+        table[i] = INT_MAX;
+
+    // Compute minimum coins required for all
+    // values from 1 to V
+    for (int i=1; i<=V; i++)
+    {
+        // Go through all coins smaller than i
+        for (int j=0; j<m; j++)
+            if (coins[j] <= i)
+            {
+                int sub_res = table[i-coins[j]];
+                if (sub_res != INT_MAX && sub_res + 1 < table[i])
+                    table[i] = sub_res + 1;
+            }
+    }
+
+    if(table[V]==INT_MAX)
+        return -1;
+
+    return table[V];
+}
+
+int main(){
+    cout << bk(16);
+    cout << endl;
+
+    int coins[] = { 2,3,5 };
+    int m = sizeof(coins) / sizeof(coins[0]);
+    int V = 16;
+    cout<< minCoins(coins, m, V)<< endl; // recursivo
+
+    vector<int> arr = {2,3,5};
+    int valor = 16;
+    cout << coinChange(arr, valor) << endl; // dp
+
+    cout << minCoinsdp(coins, m, V) << endl; //dp
+}
+

@@ -1,0 +1,277 @@
+/*#include <iostream>
+#include <chrono>
+
+void print(int **matrix, int n){
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+        {
+            if(*(*(matrix + j) + i ) == 0)
+                std::cout << "." <<  "\t";
+            else
+                std::cout << "x" <<  "\t";
+        }
+        std::cout << std::endl;
+    }
+}
+
+bool check(int **matrix, int r, int i, int N){
+    for(int j = 0; j < N; ++j)
+        if(*(*(matrix + j) + i ) == 1)//Barre verticales desde la posición [j][i] -> i = estático.
+            return false;
+
+    for(int j = 0; j < N; ++j)
+        if(*(*(matrix + r) + j ) == 1)//Barre horizontales desde la posición [r][j] -> r = estático.
+            return false;
+
+    for(int j = 0; j < N; ++j)//Barre diagonales
+        for(int k = 0; k < N; ++k)
+            if (((*(*(matrix + j) + k )) == 1) and ((j + k == r + i) or (j - k == r - i)))
+                return false;
+
+    return true;
+}
+
+bool solve(int **matrix, int r, int x, int y, int N ){
+    if(r == N and *(*(matrix + x) + y ) == 1){
+        printMatrix(matrix, N); // llega a su fin, se imprime la solución
+        return false;
+    }
+    for(int i = 0; i < N; ++i){
+        if(check(matrix, r, i, N) or (x == r and y == i)){
+            //La segunda condición solo se cumple cuando se verifica la posición inicial dentro del bucle.
+            //r avanza en cuanto a filas disponibles, i avanza en columnas.
+            matrix[r][i] = 1;
+            bool l = solve(matrix, r + 1, x, y, N);
+            if (l == 0)
+                return false;
+            if (x != r and y != i)
+                *(*(matrix + r) + i ) = 0;
+        }
+    }
+    return true;
+}
+
+void nqueens_9(int n, int x, int y ) {
+
+    int** matrix = new int*[n];
+
+    for(int i = 0; i < n; ++i) {
+        *(matrix + i) = new int[n];
+
+        for(int j = 0; j < n; ++j) {
+            *(*(matrix + i) + j ) = 0;
+        }
+    }
+
+    *(*(matrix + x) + y ) = 1;
+
+    auto start = std::chrono::system_clock::now();
+    solve(matrix, 0, x, y, n);
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    //std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "tiempo " << elapsed_seconds.count() << std::endl;
+}
+
+int main() {
+    nqueens_9(4, 2, 0);
+}
+*/
+
+/*
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> task1(const vector<int> &v){
+    vector<int> uno = v;
+
+}
+vector<int> task2(const vector<int> &v){
+
+}
+vector<int> task3(const vector<int> &v){
+
+}
+
+int main(){
+    vector<int> uno = {1,1,1,2,2,3,3,3,3};
+    vector<int> uno1 = task1(uno);
+    for (int i = 0; i < uno.size(); ++i) {
+        cout << uno1[i] << ",";
+    }
+
+    vector<int> dos = {1,3,4,-2,5,-3,-3,3};
+    vector<int> dos1 = task2(uno);
+    for (int i = 0; i < uno.size(); ++i) {
+        cout << uno1[i] << ",";
+    }
+
+    vector<int> tres = {8,3,7,-2,2};
+    vector<int> tres1 = task3(uno);
+    for (int i = 0; i < uno.size(); ++i) {
+        cout << uno1[i] << ",";
+    }
+}*/
+
+/*
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
+using namespace std;
+
+class CMatrix{
+private:
+    int **p;
+    int m,n;
+public:
+    CMatrix(const int &m,const int &n);
+    CMatrix(CMatrix &M);
+    CMatrix transpose();
+    CMatrix sign_matrix();
+    void print_matrix();
+    ~CMatrix();
+
+};
+
+CMatrix::CMatrix(const int &m, const int &n) {
+
+    p = new int *[m];
+    for (int i = 0; i < m; ++i) {
+        p[i] = new int[n];
+    }
+
+    srand(time(nullptr));
+
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            *(*(p + i) + j ) = -50 + rand() % 50;
+        }
+    }
+}
+
+CMatrix::CMatrix(CMatrix &M) {
+    m = M.m;
+    n = M.n;
+
+    p = new int *[m];
+    for (int i = 0; i < m; ++i) {
+        p[i] = new int[n];
+    }
+
+    srand(time(nullptr));
+
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            *(*(p + i) + j ) = -50 + rand() % 50;
+        }
+    }
+}
+
+CMatrix CMatrix::transpose() {
+    auto **answer = reinterpret_cast<CMatrix **>(new CMatrix(m, n));
+    for(int i=0; i<m; i++){
+        for(int j=0; j<n; j++){
+            *(*(answer + i) + j ) = *(*(answer + j) + i);
+        }
+    }
+    return **answer;
+}
+
+CMatrix CMatrix::sign_matrix() {
+
+}
+
+void CMatrix::print_matrix() {
+    CMatrix(m,n);
+    for(int i = 0; i < m; ++i) {
+        for(int j = 0; j < n; ++j) {
+            cout << *(*(p + i) + j ) << "\t";
+        }
+        cout<<endl;
+    }
+}
+
+CMatrix::~CMatrix() {
+    for (int i = 0; i < m; ++i) {
+        delete [] p[i];
+    }
+    delete [] p;
+}
+
+int main(){
+    CMatrix matrix(8,10);
+    matrix.print_matrix();
+    matrix.transpose();
+    matrix.print_matrix();
+}
+*/
+
+////////////////////////////////////////////////////////////////////////////////////
+#include <forward_list>
+#include <regex>
+#include <iostream>
+#include <vector>
+
+//coins cambio de moneda
+using namespace std;
+
+int coins_recursive(vector<int> const &S, int target)
+{
+    if (target == 0)
+        return 0;
+
+    if (target < 0)
+        return INT_MAX;
+
+    int coins = INT_MAX;
+
+    for (int i: S)
+    {
+        int result = coins_recursive(S, target - i);
+
+        if (result != INT_MAX) {
+            coins = min(coins, result + 1);
+        }
+    }
+
+    return coins;
+}
+
+int coins_dp(vector<int> const &S, int target)
+{
+    int T[target + 1];
+    T[0] = 0;
+    for (int i = 1; i <= target; i++)
+    {
+        T[i] = INT_MAX;
+        int result = INT_MAX;
+
+        for (int c: S)
+        {
+            if (i - c >= 0) {
+                result = T[i - c];
+            }
+            if (result != INT_MAX) {
+                T[i] = min(T[i], result + 1);
+            }
+        }
+    }
+    return T[target];
+}
+
+int main(){
+    vector<int> S = { 2,3,5 };
+    int target = 16;
+    int coins = coins_recursive(S, target);
+    if (coins != INT_MAX)
+        cout << "The minimum number of coins required to get the desired change is " << coins <<endl;
+
+    int coins2 = coins_dp(S, target);
+    if (coins != INT_MAX)
+        cout << "The minimum number of coins required to get the desired change is "<< coins2 << endl;
+
+}
