@@ -1,0 +1,3 @@
+/home/harrylex/Documentos/proyectos en Clion/pruebas2/cmake-build-debug/CMakeFiles/pruebas2.dir
+/home/harrylex/Documentos/proyectos en Clion/pruebas2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/harrylex/Documentos/proyectos en Clion/pruebas2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
