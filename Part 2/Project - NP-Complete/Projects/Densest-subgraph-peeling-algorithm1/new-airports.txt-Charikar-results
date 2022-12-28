@@ -1,0 +1,15 @@
+Number of vertices and edges (500,2980)
+Elapsed time to read input: 0.000465
+number of edges in simple graph: 2980
+0
+********** CHARIKAR PEELING ***************
+Elapsed time for Peel Charikar: 0.002153
+Charikar's Results
+n:500
+m:2980
+Avg. degree 2m/n:11.920
+Optimal Avg. Degree:38.344
+Size:64
+Size/|V|:0.128
+fe:0.609
+*******************************************
