@@ -1,0 +1,3 @@
+C:/Users/win 10/Documents/CLION/Spectrogram_FFT/cmake-build-debug/CMakeFiles/Spectrogram_FFT.dir
+C:/Users/win 10/Documents/CLION/Spectrogram_FFT/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/win 10/Documents/CLION/Spectrogram_FFT/cmake-build-debug/CMakeFiles/rebuild_cache.dir
