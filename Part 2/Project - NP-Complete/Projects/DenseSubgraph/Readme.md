@@ -9,7 +9,7 @@ Packages/Libraries Needed: `Boost 1.66.0`, `CMake 2.8`, `makefile`
 
 ## Datasets info
 All datasets used in our experiments are from the [KONECT](http://konect.uni-koblenz.de "KONECT") website. But, it seems the website is no longer available. Thus, we summarise all the datasets used into a zip file. 
-Repository: [datasets](https://drive.google.com/file/d/184NwGPLhWjozCNKMM_OcNGGEk50iQalr/view?usp=sharing "datasets")
+Repository: [datasets](https://drive.google.com/file/d/13znL10yrTC929puF4lraVS9PVlvn3tdD/view?usp=sharing "datasets")
 
 [gdown](https://github.com/wkentaro/gdown) is a helpful tool to download a large file from Google Drive. Below is the command to install gdown and download the datasets from Google Drive.
 ```
